@@ -2,11 +2,11 @@
 
 #include <errno.h>
 #include <stdio.h>
-#include <string.h>
 #include <unistd.h>
 
 #include "raw.h"
 #include "screen.h"
+#include "ui.h"
 
 void init_app(void)
 {
@@ -17,18 +17,13 @@ void init_app(void)
 int run_app(void)
 {
     char ch;
-    const char* welcome = "Welcome to Diem";
-    int welcome_len = strlen(welcome);
     while (1) {
         if (read(STDIN_FILENO, &ch, 1) < 0 && errno != EAGAIN) {
             perror("read");
             return 1;
         }
 
-
-        draw(welcome, screen_width() / 2 - (welcome_len / 2), screen_height() / 2);
-
-        draw_screen();
+        ui_draw();
 
         if (ch == 'q')
             break;

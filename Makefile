@@ -3,7 +3,7 @@
 CFLAGS = -Wall -Wextra -Werror -pedantic -std=c11
 LDFLAGS = -fsanitize=address,undefined
 
-DEBUG = -g3
+DEBUG = -g3 -O0
 
 BUILD_DIR = build
 OBJ_DIR = $(BUILD_DIR)/obj
