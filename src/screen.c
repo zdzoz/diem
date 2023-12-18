@@ -86,7 +86,7 @@ void draw(const char* str, uint16_t x, uint16_t y)
 
 void drawn(const char* str, int len, uint16_t x, uint16_t y)
 {
-    if (x + len > screen->width)
+    if (x + len >= screen->width)
         len = (int)screen->width - (int)x;
     if (y >= screen->height || len <= 0)
         return;
