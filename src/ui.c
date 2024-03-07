@@ -3,6 +3,8 @@
 #include "screen.h"
 #include <string.h>
 
+
+// TODO: rework width and height to actually be relative 
 typedef struct container {
     uint16_t x;
     uint16_t y;
@@ -75,7 +77,7 @@ static void update(void)
 {
     // update ui categories
     uint16_t width = screen_width() / 4;
-    uint16_t height = screen_height();
+    uint16_t height = screen_height() - 2;
     width = width < UI_CATEGORIES_MIN_WIDTH ? UI_CATEGORIES_MIN_WIDTH : width;
     width = width > UI_CATEGORIES_MAX_WIDTH ? UI_CATEGORIES_MAX_WIDTH : width;
     height = height < UI_CATEGORIES_MIN_HEIGHT ? UI_CATEGORIES_MIN_HEIGHT : height;
@@ -84,9 +86,9 @@ static void update(void)
     ui_categories_container.height = height;
 
     // update ui tasks
-    ui_task_container.x = ui_categories_container.x + ui_categories_container.width - 1;
+    ui_task_container.x = ui_categories_container.x + ui_categories_container.width + 1;
     ui_task_container.y = ui_categories_container.y;
-    ui_task_container.width = screen_width();
+    ui_task_container.width = screen_width() - 2;
     ui_task_container.height = ui_categories_container.height;
 }
 
@@ -108,13 +110,13 @@ void ui_draw(void)
     if (screen_resized())
         update();
 
-    // UI_DRAW_CONTAINER(&ui_categories_container);
-    // UI_DRAW_CONTAINER(&ui_task_container);
+    UI_DRAW_CONTAINER(&ui_categories_container);
+    UI_DRAW_CONTAINER(&ui_task_container);
 
-    // char separator[UI_CATEGORIES_MAX_WIDTH] = { 0 };
-    // memset(separator, '-', sizeof(char) * ui_categories_container.width - 1);
-    // drawc(&ui_categories_container, "| test |", 7, 1);
-    // drawc(&ui_categories_container, separator, 0, 2);
+    char separator[UI_CATEGORIES_MAX_WIDTH] = { 0 };
+    memset(separator, '-', sizeof(char) * ui_categories_container.width - 1);
+    drawc(&ui_categories_container, "| test |", 7, 1);
+    drawc(&ui_categories_container, separator, 0, 2);
 
     container_t tcont = { .x = 1, .y = 1, .width = screen_width() - 2, .height = screen_height() - 2, .title = "TEST" };
     UI_DRAW_CONTAINER(&tcont);

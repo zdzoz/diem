@@ -10,6 +10,8 @@ OBJ_DIR = $(BUILD_DIR)/obj
 BIN_DIR = $(BUILD_DIR)/bin
 SRC_DIR = src
 
+APPLICATION_NAME = zen
+
 default: all
 
 SRCS = $(wildcard $(SRC_DIR)/*.c)
@@ -20,7 +22,7 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 	@mkdir -p $(OBJ_DIR)
 	@$(CC) $(CFLAGS) $(DEBUG) -c -o $@ $<
 
-TARGET = $(BIN_DIR)/diem
+TARGET = $(BIN_DIR)/$(APPLICATION_NAME)
 $(TARGET): $(OBJS)
 	@echo "Linking $@"
 	@mkdir -p $(BIN_DIR)
